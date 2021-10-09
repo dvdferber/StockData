@@ -16,7 +16,7 @@ function getDataFromAPI() {
       method: "GET",
       headers: {
         "x-rapidapi-host": "yh-finance.p.rapidapi.com",
-        "x-rapidapi-key": "44a97196c8msh9eb8948e36124f7p1833c1jsnf149ddc4b1f1",
+        "x-rapidapi-key": "",
       },
     })
       .then((response) => {
