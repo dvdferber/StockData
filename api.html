@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>api yahoo</title>
+</head>
+<body>
+    <header>
+        <h2>Get data on your favorites stock</h2>
+    </header>
+    <div id="input-area">
+        <div id="input-with-button">
+            <input type="text" placeholder="enter stock" id="text-stock">
+            <input type="button" value="🔍" id="send-button"><br>
+        </div>
+    </div>
+    <hr>
+    <contaner id="contaner">
+        <table  id="stock-table">
+            <thead>
+                <td>Full name</td>
+                <td>Symbol</td>
+                <td>Long name</td>
+                <td>Change Percent</td>
+                <td>Market Price</td>    
+                <td>Day Range</td>    
+            </thead>
+            <tbody id='table-body'>
+    
+            </tbody>
+        </table>
+    </contaner>
+    <script src="index.js"></script>
+    <!-- <script>
+        const userInput = document.getElementById('text-stock')
+        const buttonEl = document.getElementById('send-button')
+        buttonEl.addEventListener('click', ()=> getDataFromAPI())
+        let dataDisplaydOlredy = false
+
+        function getDataFromAPI(){
+            const stockForSearch = createStringToUrl(userInput.value)
+
+            const URL = `https://yh-finance.p.rapidapi.com/market/v2/get-quotes?region=US&symbols=${stockForSearch}`
+            let dataFromStorge = localStorage.getItem('ceshdata')
+            dataFromStorge = JSON.parse(dataFromStorge)
+            if(dataFromStorge && !userInput.value){
+                createTableUI(dataFromStorge, true)
+            }else{
+                fetch(URL, {
+                "method": "GET",
+                "headers": {
+                    "x-rapidapi-host": "yh-finance.p.rapidapi.com",
+                    "x-rapidapi-key": "44a97196c8msh9eb8948e36124f7p1833c1jsnf149ddc4b1f1"
+                }
+                })
+                .then(response => {
+                    if(response.ok){
+                        return response.json()
+                    }
+                }).then(data => createTableUI(data, false))
+                .catch(err => {
+                    console.error(err);
+                });
+            }
+        }
+        function createStringToUrl(userValue){
+            if(userValue == ''){
+                userValue = 'ADAP, MFA, BA, IMVT, KDP, ABNB, FRT'
+            }
+            //console.log(userValue);
+            const withoutSpace = userValue.replace(/\s/g, "")
+            return withoutSpace.replace(/,/g, '%2C').toUpperCase()
+        }
+        function createTableUI(respObj, fromCash){
+            if(dataDisplaydOlredy) return
+             const clearData = fromCash ? respObj : getClearData(respObj)
+             console.log('==================================');
+             //console.log(clearData);
+             const loopCount = clearData.length
+             const tableBodyEl = document.getElementById('table-body')
+
+             for (let i = 0; i < loopCount; i++) {
+                let trEl = document.createElement('tr')
+                
+                let tdfullNameEl = document.createElement('td')
+                let tdsymbolEl = document.createElement('td')
+                let tdlongNameEl = document.createElement('td')
+                let tdpostMarketPriceEl = document.createElement('td')
+                let tdMarketPriceEl = document.createElement('td')
+                let tdDayRangeEl = document.createElement('td')
+
+                tdfullNameEl.innerText = clearData[i].fullName
+                tdsymbolEl.innerText = clearData[i].symbol
+                tdlongNameEl.innerText = clearData[i].longName
+                tdpostMarketPriceEl.innerText = clearData[i].postMarketPrice
+                tdMarketPriceEl.innerText = clearData[i].MarketPrice 
+                tdDayRangeEl.innerText = clearData[i].DayRange 
+
+                tdfullNameEl.id = i % 2 === 0 ? "even" : "odd"
+                tdsymbolEl.id = i % 2 === 0 ? "even" : "odd"
+                tdlongNameEl.id = i % 2 === 0 ? "even" : "odd"
+                tdpostMarketPriceEl.id = i % 2 === 0 ? "even" : "odd"
+                tdMarketPriceEl.id = i % 2 === 0 ? "even" : "odd"
+                tdDayRangeEl.id = i % 2 === 0 ? "even" : "odd"
+
+                trEl.appendChild(tdfullNameEl)
+                trEl.appendChild(tdsymbolEl)
+                trEl.appendChild(tdlongNameEl)
+                trEl.appendChild(tdpostMarketPriceEl)
+                trEl.appendChild(tdMarketPriceEl)
+                trEl.appendChild(tdDayRangeEl)
+                tableBodyEl.appendChild(trEl)
+                dataDisplaydOlredy = true
+             }
+             
+        }
+        function getClearData(respObj, fromCash){
+            const arrayData = respObj.quoteResponse.result
+            console.log(arrayData);
+            const dataLength = arrayData.length 
+                let tableArray = []
+                for (let i = 0; i < dataLength; i++) {
+                    const newJson = {
+                        postMarketChangePercent: arrayData[i].postMarketChangePercent,
+                        symbol: arrayData[i].symbol,
+                        fullName: arrayData[i].fullExchangeName,
+                        longName: arrayData[i].longName,
+                        MarketPrice: arrayData[i].regularMarketPrice,
+                        postMarketPrice: arrayData[i].postMarketPrice,
+                        DayRange: arrayData[i].regularMarketDayRange,
+                    }
+                    tableArray.push(newJson)
+            }
+            localStorage.setItem('ceshdata', JSON.stringify(tableArray))
+            return tableArray
+        }
+    </script> -->
+</body>
+</html>
